@@ -17,6 +17,10 @@ import "ant-design-pro/dist/ant-design-pro.css";
 
 const sagaMiddleware = createSagaMiddleware();
 
+const initialStore = {
+  currency: "BTC"
+};
+
 let store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
 
 sagaMiddleware.run(watcherSaga);

@@ -1,10 +1,24 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
+import "@firebase/firestore";
+import ReduxSagaFirebase from "redux-saga-firebase";
 
-import { FirebaseConfig } from "./config/keys";
+var config = {
+  apiKey: "AIzaSyClyjfIsGYEeO2vGZp5Peyc75Ax2SURkPg",
+  authDomain: "crypto-babble.firebaseapp.com",
+  databaseURL: "https://crypto-babble.firebaseio.com",
+  projectId: "crypto-babble",
+  storageBucket: "crypto-babble.appspot.com",
+  messagingSenderId: "67655670668"
+};
 
-firebase.initializeApp(FirebaseConfig);
+let firebaseApp = firebase.app.length
+  ? firebase.initializeApp(config)
+  : firebase.app();
 
-const databaseRef = firebase.database().ref();
+const firestore = firebase.firestore();
+const settings = { /* your settings... */ timestampsInSnapshots: true };
+firestore.settings(settings);
 
-export const messagesRef = databaseRef.child("messages");
-export const usersRef = databaseRef.child("users");
+const rsf = new ReduxSagaFirebase(firebaseApp);
+
+export default rsf;

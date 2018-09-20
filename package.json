@@ -1,10 +1,12 @@
 {
-  "name": "price-history-chart",
+  "name": "crypto-babble",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@firebase/firestore": "0.7.2",
+    "@livechat/ui-kit": "0.2.11",
     "ant-design-pro": "1.4.4",
     "antd": "latest",
     "axios": "0.18.0",
@@ -19,7 +21,8 @@
     "react-scripts": "1.1.4",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
-    "redux-saga": "0.16.0"
+    "redux-saga": "0.16.0",
+    "redux-saga-firebase": "0.14.1"
   },
   "devDependencies": {},
   "scripts": {
