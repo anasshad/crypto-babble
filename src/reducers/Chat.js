@@ -6,11 +6,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_MESSAGES_SUCCESS:
-      return {
-        ...state,
-        messages: action.messages
-      };
+    // case GET_MESSAGES_SUCCESS:
+    //   return {
+    //     ...state,
+    //     messages: action.messages
+    //   };
     case SYNC_MESSAGES:
       return {
         ...state,

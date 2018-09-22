@@ -17,11 +17,14 @@ class ChatContainer extends React.Component {
     console.log("**INSIDE CHAT CONTAINER**", this.props);
     return (
       <div>
-        <ChatBox messages={this.props.messages} />
+        <ChatBox
+          messages={this.props.messages}
+          uid={!this.props.user ? "00000" : this.props.user.uid}
+        />
         <Card>
           {this.props.signedIn ? (
             <Chat
-              avatar={this.props.user.photoURL}
+              user={this.props.user}
               sendMessage={this.props.addMessage}
               uid={this.props.user.uid}
             />

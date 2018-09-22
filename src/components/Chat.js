@@ -12,7 +12,9 @@ class Chat extends React.Component {
       const messageObj = {
         text: message,
         submit_at: new Date(),
-        uid: this.props.uid
+        uid: this.props.uid,
+        submit_by: this.props.user.displayName,
+        avatar: this.props.user.photoURL
       };
       this.props.sendMessage(messageObj);
     }
@@ -22,7 +24,7 @@ class Chat extends React.Component {
     return (
       <Row gutter={6} type="flex" justify="center" align="center">
         <Col xs={3} sm={2} md={1} style={{ textAlign: "center" }}>
-          <Avatar size="medium" src={this.props.avatar} />
+          <Avatar size="medium" src={this.props.user.photoURL} />
         </Col>
         <Col xs={17} sm={18} md={19}>
           <Input

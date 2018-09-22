@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import rsf from "../firebase";
+import rsf, { firebaseApp } from "../firebase";
 
 import { takeLatest } from "redux-saga";
 import { take, put, call, all, takeEvery, fork } from "redux-saga/lib/effects";
@@ -15,10 +15,13 @@ import {
   getMessagesSuccess
 } from "../actions/Chat";
 
-const messagesRef = firebase.database().ref("messages");
-
 function* syncMessagesSaga() {
-  const channel = rsf.firestore.channel("messages");
+  const channel = rsf.firestore.channel(
+    firebase
+      .firestore(firebaseApp)
+      .collection("messages")
+      .orderBy("submit_at")
+  );
 
   while (true) {
     const messages = yield take(channel);
@@ -39,27 +42,31 @@ function* addMessageSaga(m) {
   }
 }
 
-function* getMessagesSaga() {
-  try {
-    const snapshot = yield call(rsf.firestore.getCollection, "messages");
-    let messages;
-    snapshot.forEach(message => {
-      messages = {
-        ...messages,
-        [message.id]: message.data()
-      };
-    });
+// function* getMessagesSaga() {
+//   try {
+//     const snapshot = yield call(rsf.firestore.getCollection, "messages");
+//     let messages;
+//     snapshot.forEach(message => {
+//       messages = {
+//         ...messages,
+//         [message.id]: message.data()
+//       };
+//     });
+//     let messagesArray;
+//     Object.keys(messages).forEach(key => {
+//       messagesArray.push(messages[key]);
+//     });
 
-    yield put(getMessagesSuccess(messages));
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     yield put(getMessagesSuccess(messagesArray));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export default function* chatWatcherSaga() {
   yield all([
-    call(syncMessagesSaga),
-    takeLatest(GET_MESSAGES, getMessagesSaga),
+    // call(syncMessagesSaga),
+    takeLatest(GET_MESSAGES, syncMessagesSaga),
     takeEvery(ADD_MESSAGE, addMessageSaga)
   ]);
 }

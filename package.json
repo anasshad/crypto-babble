@@ -6,7 +6,6 @@
   "main": "src/index.js",
   "dependencies": {
     "@firebase/firestore": "0.7.2",
-    "@livechat/ui-kit": "0.2.11",
     "ant-design-pro": "1.4.4",
     "antd": "latest",
     "axios": "0.18.0",
@@ -16,6 +15,7 @@
     "numeral": "2.0.6",
     "react": "16.4.2",
     "react-chartjs-2": "2.7.4",
+    "react-chat-elements": "10.0.3",
     "react-dom": "16.4.2",
     "react-redux": "5.0.7",
     "react-scripts": "1.1.4",
